@@ -11,4 +11,6 @@ public interface UserService {
     public List<User> findAll();
 
     public User findOne(int id);
+
+    public User deleteById(int id);
 }
