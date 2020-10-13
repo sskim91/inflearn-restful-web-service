@@ -1,5 +1,6 @@
 package com.example.restfulwebservice.controller;
 
+import com.example.restfulwebservice.exception.UserNotFoundException;
 import com.example.restfulwebservice.domain.User;
 import com.example.restfulwebservice.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,20 @@ public class UserController {
 
     //전체 목록 가져오기
     @GetMapping("/users")
-    public List<User> retrieveAllusers() {
+    public List<User> retrieveAllUsers() {
         return service.findAll();
     }
 
     //사용자 한명
     //GET /users/1 or /users/10 -> int형으로 보내도 String형으로 변환됨. but 이런 문자형태도 int 형으로 선언하면 자동으로 converting 된다.
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable int id) {    //
-        return service.findOne(id);
+    public User retrieveUser(@PathVariable int id) {
+
+        User user = service.findOne(id);
+        if (user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+        return user;
     }
 
     @PostMapping("/users")
