@@ -1,6 +1,6 @@
 package com.example.restfulwebservice.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"password"})  //클래스 블록에서 사용하는방법
+//@JsonIgnoreProperties(value = {"password"})  //클래스 블록에서 사용하는방법
+@JsonFilter("UserInfo")
 public class User {
     private Integer id;
 
@@ -24,6 +25,5 @@ public class User {
     //외부에 노출시키고 싶지 않은 데이터 제어하기
 //    @JsonIgnore
     private String password;
-    //    @JsonIgnore
     private String ssn; //주민등록번호
 }
