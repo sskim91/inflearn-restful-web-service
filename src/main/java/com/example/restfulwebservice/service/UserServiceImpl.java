@@ -17,9 +17,9 @@ public class UserServiceImpl implements UserService {
     private static int userCount = 3;
 
     static {
-        userList.add(new User(1, "sskim", new Date()));
-        userList.add(new User(2, "Alice", new Date()));
-        userList.add(new User(3, "Elena", new Date()));
+        userList.add(new User(1, "sskim", new Date(), "pass1", "701010-1111111"));
+        userList.add(new User(2, "Alice", new Date(), "pass2", "801010-1111111"));
+        userList.add(new User(3, "Elena", new Date(), "pass3", "901010-1111111"));
     }
 
     @Override
