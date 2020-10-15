@@ -1,6 +1,7 @@
 package com.example.restfulwebservice.service;
 
 import com.example.restfulwebservice.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private static List<User> userList = new ArrayList<>();
@@ -52,6 +54,18 @@ public class UserServiceImpl implements UserService {
 
             if (user.getId() == id) {
                 iterator.remove();
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public User updateById(int id, User user) {
+        for (User updateUser : userList) {
+            if (updateUser.getId() == id) {
+                userList.get(id-1).setName(user.getName());
+                userList.get(id-1).setJoinDate(user.getJoinDate());
                 return user;
             }
         }

@@ -1,7 +1,7 @@
 package com.example.restfulwebservice.controller;
 
-import com.example.restfulwebservice.exception.UserNotFoundException;
 import com.example.restfulwebservice.domain.User;
+import com.example.restfulwebservice.exception.UserNotFoundException;
 import com.example.restfulwebservice.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,4 +58,21 @@ public class UserController {
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
     }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
+        User updateUser = service.updateById(id, user);
+
+        if (updateUser == null) {
+            throw  new UserNotFoundException(String.format("ID[%s] is not Found", id));
+        }
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(updateUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+
 }
